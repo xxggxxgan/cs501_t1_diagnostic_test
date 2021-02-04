@@ -68,7 +68,13 @@ class UserAPI(MethodView):
         print(result)
         return str(result),200
 
-
+class RootPage(MethodView):
+    def get(self):
+        s1 = "wlcome to Xiaoxin Gan's hw1 for cs501"
+        s2 = "please use postman to register new account on https://gxx-cs501-hw1.herokuapp.com/auth/register"
+        s3 = "check all registered users on https://gxx-cs501-hw1.herokuapp.com/users/index"
+        end = "\n"
+        return s1 + end + s2 + end + s3,200
 
 # define the API resources
 registration_view = RegisterAPI.as_view('register_api')
@@ -85,5 +91,13 @@ user_view = UserAPI.as_view('user_api')
 auth_blueprint.add_url_rule(
     '/users/index',
     view_func=user_view,
+    methods=['POST', 'GET']
+)
+
+root_page= RootPage.as_view('root_api')
+
+auth_blueprint.add_url_rule(
+    '/',
+    view_func=root_page,
     methods=['POST', 'GET']
 )
